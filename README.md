@@ -69,3 +69,25 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
   ```
   (The `-UserNames` list is only used here to reset their `/times:all`; the rights template we applied is removed.)
 
+---
+
+Here’s a Microsoft‑account–friendly, offline enforcement package.
+This version does not use net user /times or Local Security Policy (both only work for local accounts). Instead, it uses Scheduled Tasks + PowerShell to:
+
+* Curfew: log off (or lock) any non‑exempt user during 22:00–06:00 (configurable).
+* Daily screen‑time: count active time per signed‑in user and shut down the PC at 4 hours (configurable).
+* Anti‑tamper watchdog: shuts down the PC if a monitored user kills the enforcer.
+
+It works with Microsoft accounts and local accounts, fully offline.
+
+# Most common: curfew 22:00–06:00, 4h cap, exempt admins
+.\Install-MSA-ScreenTimePolicy.ps1 -CurfewStart '22:00' -CurfewEnd '06:00' -MaxMinutes 240 -AllowAdministrators
+
+# Exempt specific users by their sign-in name as shown by `quser` (e.g., admin/hiren/email):
+.\Install-MSA-ScreenTimePolicy.ps1 -ExemptUsers 'admin','hiren','microsoftaccount\someone@example.com' -AllowAdministrators
+
+# Choose curfew action: Logoff (default) or Lock (disconnect session)
+.\Install-MSA-ScreenTimePolicy.ps1 -CurfewAction Lock -AllowAdministrators
+
+# Uninstall / remove everything
+.\Install-MSA-ScreenTimePolicy.ps1 -Uninstall
