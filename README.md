@@ -30,6 +30,16 @@ A **single, offline PowerShell installer** that:
 - `-MaxMinutes 240` (daily cap)
 - `-Uninstall` (clean removal)
 
+if PowerShell is blocking the installer, use one of these **safe, temporary** options to allow the script to run. Pick whichever you prefer.
+
+---
+
+## Easiest (recommended): Allow just this session
+Run **PowerShell as Administrator** and execute:
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+```
+
 > ⚠️ **Important:** The script will restrict **“Allow log on locally”** to **Administrators + the specified users only**. Any other local user will be unable to sign in until you explicitly add them to the allowed list (by re‑running the script with their name or by editing Local Security Policy).
 
 ---
