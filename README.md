@@ -6,6 +6,7 @@ A **single, offline PowerShell installer** that:
 - **Prevents new local users** from signing in unless explicitly allowed by an admin by tightening **“Allow log on locally”** rights.
 - Adds **hardening** (e.g., remove “Change the time zone” from standard users).
 - Works **entirely offline** and survives reboots.
+- Works only for loca user accounts, not Microsoft email address accounts.
 
 > **References used for design & commands**
 > - `net user /times` syntax & 1‑hour increments; built into Windows 11.   
